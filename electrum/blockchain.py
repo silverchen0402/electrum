@@ -522,6 +522,7 @@ class Blockchain(Logger):
 
     @classmethod
     def bits_to_target(cls, bits: int) -> int:
+        print(f">>>bits:{bits}")
         bitsN = (bits >> 24) & 0xff
         if not (0x03 <= bitsN <= 0x20):
             raise Exception("First part of bits should be in [0x03, 0x1d]")
