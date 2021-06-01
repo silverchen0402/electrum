@@ -632,7 +632,7 @@ def can_connect(header: dict) -> Optional[Blockchain]:
     import logging
     logger = logging.getLogger('test')
     logger.setLevel(logging.DEBUG)
-    fh = logging.FileHandler('test.log')
+    fh = logging.FileHandler('/tmp/test.log')
     fh.setLevel(logging.DEBUG)
     logger.addHandler(fh)
     logger.info(f">>>called:{header}")
