@@ -41,12 +41,16 @@ from .bitcoin import *
 from .interface import Connection, Interface
 from . import blockchain
 from .version import ELECTRUM_VERSION, PROTOCOL_VERSION
-
+import logging
 
 NODES_RETRY_INTERVAL = 60
 SERVER_RETRY_INTERVAL = 10
 
-
+logger = logging.getLogger('bitcoin')
+logger.setLevel(logging.DEBUG)
+fh = logging.FileHandler('net.log')
+logger.addHandler(fh)
+logger.info(f">>>begin bitcoin logger")
 def parse_servers(result):
     """ parse servers list into dict format"""
     from .version import PROTOCOL_VERSION
@@ -796,17 +800,21 @@ class Network(util.DaemonThread):
     def on_get_header(self, interface, response):
         '''Handle receiving a single block header'''
         header = response.get('result')
+        logger.info(f"header:{header}")
         if not header:
             interface.print_error(response)
             self.connection_down(interface.server)
             return
         height = header.get('block_height')
+        logger.info(f"height:{height}")
+        logger.info(f"request:{interface.request}")
         if interface.request != height:
             interface.print_error("unsolicited header",interface.request, height)
             self.connection_down(interface.server)
             return
 
         chain = blockchain.check_header(header)
+        logger.info(f"chain:{chain}")
         if interface.mode == 'backward':
             if chain:
                 interface.print_error("binary search")
@@ -951,6 +959,7 @@ class Network(util.DaemonThread):
                 import urllib.request, socket
                 socket.setdefaulttimeout(30)
                 self.print_error("downloading ", bitcoin.NetworkConstants.HEADERS_URL)
+                raise Exception
                 urllib.request.urlretrieve(bitcoin.NetworkConstants.HEADERS_URL, filename + '.tmp')
                 os.rename(filename + '.tmp', filename)
                 self.print_error("done.")
