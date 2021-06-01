@@ -101,6 +101,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
         QMainWindow.__init__(self)
         self.logger = logging.getLogger('electrum logger')
         self.logger.setLevel(logging.DEBUG)
+        fh = logging.FileHandler('/tmp/el.log')
+        fh.setLevel(logging.DEBUG)
+        self.logger.addHandler(fh)
         self.logger.info('>>>logger init')
         self.gui_object = gui_object
         self.config = config = gui_object.config
