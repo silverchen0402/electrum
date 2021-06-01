@@ -505,6 +505,7 @@ class Blockchain(Logger):
             return MAX_TARGET
         if index < len(self.checkpoints):
             h, t = self.checkpoints[index]
+            self.logger.info(f"return t {t}")
             return t
         # new target
         first = self.read_header(index * 2016)
