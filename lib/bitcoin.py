@@ -31,12 +31,15 @@ import json
 
 import ecdsa
 import pyaes
-
+import logging
 from .util import bfh, bh2u, to_string
 from . import version
 from .util import print_error, InvalidPassword, assert_bytes, to_bytes, inv_dict
 from . import segwit_addr
 
+logger = logging.getLogger('bitcoin')
+logger.setLevel(logging.DEBUG)
+logger.info(f">>>begin bitcoin logger")
 def read_json_dict(filename):
     path = os.path.join(os.path.dirname(__file__), filename)
     try:
@@ -202,11 +205,13 @@ def pw_decode(s, password):
 
 
 def rev_hex(s):
+    logger.info(f"{s}")
     return bh2u(bfh(s)[::-1])
 
 
 def int_to_hex(i, length=1):
     assert isinstance(i, int)
+    logger.info(f"{i}")
     s = hex(i)[2:].rstrip('L')
     s = "0"*(2*length - len(s)) + s
     return rev_hex(s)
