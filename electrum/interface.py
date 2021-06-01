@@ -551,7 +551,7 @@ class Interface(Logger):
             return 'catchup', height+1
 
         can_connect = blockchain.can_connect(header) if 'mock' not in header else header['mock']['connect'](height)
-        logger.info(f">>>can_connect:{can_connect}:{height}")
+        self.logger.info(f">>>can_connect:{can_connect}:{height}")
         if not can_connect:
             self.logger.info(f"can't connect {height}")
             height, header, bad, bad_header = await self._search_headers_backwards(height, header)
