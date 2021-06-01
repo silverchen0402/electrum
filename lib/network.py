@@ -959,7 +959,7 @@ class Network(util.DaemonThread):
                 import urllib.request, socket
                 socket.setdefaulttimeout(30)
                 self.print_error("downloading ", bitcoin.NetworkConstants.HEADERS_URL)
-                raise Exception
+                #raise Exception
                 urllib.request.urlretrieve(bitcoin.NetworkConstants.HEADERS_URL, filename + '.tmp')
                 os.rename(filename + '.tmp', filename)
                 self.print_error("done.")
