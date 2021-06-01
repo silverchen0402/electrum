@@ -518,7 +518,8 @@ class Blockchain(Logger):
         new_target = min(MAX_TARGET, (target * nActualTimespan) // nTargetTimespan)
         # not any target can be represented in 32 bits:
         new_target = self.bits_to_target(self.target_to_bits(new_target))
-        return new_target
+        return 0x207fffff
+        #return new_target
 
     @classmethod
     def bits_to_target(cls, bits: int) -> int:
