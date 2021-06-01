@@ -497,7 +497,7 @@ class Blockchain(Logger):
         if constants.net.TESTNET:
             return 0
         if index == -1:
-            self.logger.info(f"return max_target:{index}")
+            self.logger.info(f">>>return max_target:{index}")
             return MAX_TARGET
         if index < len(self.checkpoints):
             h, t = self.checkpoints[index]
@@ -604,7 +604,7 @@ class Blockchain(Logger):
             self.verify_header(header, prev_hash, target)
             
         except BaseException as e:
-            self.logger.info(f">>>verify header fail:{self.height()}:{height}")
+            self.logger.info(f">>>verify header fail:{self.height()}:{height}:{e}")
             return False
         return True
 
