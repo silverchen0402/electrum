@@ -575,26 +575,31 @@ class Blockchain(Logger):
     def can_connect(self, header: dict, check_height: bool=True) -> bool:
         self.logger.info(f">>>check_height:{self.height()}")
         if header is None:
+            self.logger.info(f">>>header none:{self.height()}")
             return False
         height = header['block_height']
         self.logger.info(f">>>check_height:{self.height()}:{height}")
         if check_height and self.height() != height - 1:
-            self.logger.info(f">>>check_height:{self.height()}:{height}")
+            self.logger.info(f">>>check_height fail:{self.height()}:{height}")
             return False
         if height == 0:
             return hash_header(header) == constants.net.GENESIS
         try:
             prev_hash = self.get_hash(height - 1)
         except:
+            self.logger.info(f">>>get_hash prev fail:{self.height()}:{height}")
             return False
         if prev_hash != header.get('prev_block_hash'):
+            self.logger.info(f">>>get block hash fail:{self.height()}:{height}")
             return False
         try:
             target = self.get_target(height // 2016 - 1)
+            self.logger.info(f">>>get target fail:{self.height()}:{height}")
         except MissingHeader:
             return False
         try:
             self.verify_header(header, prev_hash, target)
+            self.logger.info(f">>>verify header fail:{self.height()}:{height}")
         except BaseException as e:
             return False
         return True
