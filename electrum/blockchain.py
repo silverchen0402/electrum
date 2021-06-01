@@ -574,6 +574,7 @@ class Blockchain(Logger):
             return False
         height = header['block_height']
         if check_height and self.height() != height - 1:
+            self.logger.info(f">>>check_height:{self.height()}:{height}")
             return False
         if height == 0:
             return hash_header(header) == constants.net.GENESIS
