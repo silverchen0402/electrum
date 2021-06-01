@@ -496,6 +496,8 @@ class Blockchain(Logger):
 
     def get_target(self, index: int) -> int:
         # compute target from chunk x, used in chunk x+1
+        import inspect
+        print(">>>caller:",inspect.stack()[1].function, inspect.stack()[1].filename)
         if constants.net.TESTNET:
             return 0
         if index == -1:
@@ -518,6 +520,7 @@ class Blockchain(Logger):
         new_target = min(MAX_TARGET, (target * nActualTimespan) // nTargetTimespan)
         # not any target can be represented in 32 bits:
         new_target = self.bits_to_target(self.target_to_bits(new_target))
+        self.logger.inf(f"new target is:{new_target}")
         #return 0x207fffff
         return new_target
 
