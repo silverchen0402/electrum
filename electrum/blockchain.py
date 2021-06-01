@@ -316,6 +316,7 @@ class Blockchain(Logger):
     @with_lock
     def path(self):
         d = util.get_headers_dir(self.config)
+        basename='x'
         if self.parent is None:
             filename = 'blockchain_headers'
         else:
