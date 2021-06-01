@@ -29,7 +29,7 @@ import traceback
 import urllib
 import threading
 import hmac
-
+import logging
 from .i18n import _
 
 
@@ -67,6 +67,9 @@ class MyEncoder(json.JSONEncoder):
 
 class PrintError(object):
     '''A handy base class'''
+    def __init__(self):
+        logger = logging.getLogger('electrum')
+        logger.setLevel(logging.DEBUG)
     def diagnostic_name(self):
         return self.__class__.__name__
 
@@ -75,6 +78,9 @@ class PrintError(object):
 
     def print_msg(self, *msg):
         print_msg("[%s]" % self.diagnostic_name(), *msg)
+
+    def log_msg(self, msg):
+        self.logger.info(msg)
 
 class ThreadJob(PrintError):
     """A job that is run periodically from a thread's main loop.  run() is
