@@ -584,6 +584,7 @@ class Blockchain(Logger):
             self.logger.info(f">>>check_height fail:{self.height()}:{height}")
             return False
         if height == 0:
+            self.logger.info(f">>>comapre genesis:{self.height()}:{height}")
             return hash_header(header) == constants.net.GENESIS
         try:
             prev_hash = self.get_hash(height - 1)
@@ -595,13 +596,15 @@ class Blockchain(Logger):
             return False
         try:
             target = self.get_target(height // 2016 - 1)
-            self.logger.info(f">>>get target fail:{self.height()}:{height}")
+            
         except MissingHeader:
+            self.logger.info(f">>>get target fail:{self.height()}:{height}")
             return False
         try:
             self.verify_header(header, prev_hash, target)
-            self.logger.info(f">>>verify header fail:{self.height()}:{height}")
+            
         except BaseException as e:
+            self.logger.info(f">>>verify header fail:{self.height()}:{height}")
             return False
         return True
 
