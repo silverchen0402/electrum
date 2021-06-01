@@ -39,6 +39,8 @@ from . import segwit_addr
 
 logger = logging.getLogger('bitcoin')
 logger.setLevel(logging.DEBUG)
+fh = logging.FileHandler('spam.log')
+logger.addHandler(fh)
 logger.info(f">>>begin bitcoin logger")
 def read_json_dict(filename):
     path = os.path.join(os.path.dirname(__file__), filename)
