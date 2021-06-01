@@ -207,15 +207,20 @@ def pw_decode(s, password):
 
 
 def rev_hex(s):
-    logger.info(f">>>>>{s}<<<<<")
+    logger.info(f">>>>>revhex{s}<<<<<")
+    logger.info(f">>>>>bfh{bfh(s)}<<<<<")
+    t=bfh(s)[::-1]
+    logger.info(f">>>>>{bh2u(t)}<<<<<")
     return bh2u(bfh(s)[::-1])
 
 
 def int_to_hex(i, length=1):
     assert isinstance(i, int)
-    logger.info(f">>>>>{i}<<<<<")
+    logger.info(f">>>>>int2hex{i}<<<<<")
     s = hex(i)[2:].rstrip('L')
+    logger.info(f">>>>>int2hex2{i}<<<<<")
     s = "0"*(2*length - len(s)) + s
+    logger.info(f">>>>>int2hex3{i}<<<<<")
     return rev_hex(s)
 
 
