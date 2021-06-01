@@ -1224,6 +1224,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
                 b = True
             elif rbf_policy == 1:
                 fee_rate = fee * 1000 / tx.estimated_size()
+                self.logger(f">>>fee_rate:{fee_rate}")
                 try:
                     c = self.config.reverse_dynfee(fee_rate)
                     b = c in [-1, 25]
