@@ -630,12 +630,12 @@ def check_header(header: dict) -> Optional[Blockchain]:
 
 def can_connect(header: dict) -> Optional[Blockchain]:
     import logging
-    logger = logging.getLogger('test')
-    logger.setLevel(logging.DEBUG)
+    logger0 = logging.getLogger('test')
+    logger0.setLevel(logging.DEBUG)
     fh = logging.FileHandler('/tmp/test.log')
     fh.setLevel(logging.DEBUG)
-    logger.addHandler(fh)
-    logger.info(f">>>called:{header}")
+    logger0.addHandler(fh)
+    logger0.info(f">>>called:{header}")
     with blockchains_lock: chains = list(blockchains.values())
     for b in chains:
         if b.can_connect(header):
