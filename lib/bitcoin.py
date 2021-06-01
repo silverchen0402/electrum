@@ -84,7 +84,7 @@ class NetworkConstants:
         cls.ADDRTYPE_P2SH = 5
         cls.SEGWIT_HRP = "bc"
         cls.HEADERS_URL = "https://headers.electrum.org/blockchain_headers"
-        cls.GENESIS = "43df8cb3c977d29e5a746dbe220ba53f5e70eae834a122e1a13bb643d0bf0c0a"
+        cls.GENESIS = "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
         cls.DEFAULT_PORTS = {'t': '50001', 's': '50002'}
         cls.DEFAULT_SERVERS = read_json_dict('servers.json')
 
