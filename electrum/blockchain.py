@@ -279,6 +279,7 @@ class Blockchain(Logger):
     def update_size(self) -> None:
         p = self.path()
         self._size = os.path.getsize(p)//HEADER_SIZE if os.path.exists(p) else 0
+        self.logger.info(f"size:{self._size}")
 
     @classmethod
     def verify_header(cls, header: dict, prev_hash: str, target: int, expected_header_hash: str=None) -> None:
@@ -323,6 +324,7 @@ class Blockchain(Logger):
             first_hash = self._forkpoint_hash.lstrip('0')
             basename = f'fork2_{self.forkpoint}_{prev_hash}_{first_hash}'
             filename = os.path.join('forks', basename)
+        self.logger.info(f"{d}:{basename}")
         return os.path.join(d, filename)
 
     @with_lock
