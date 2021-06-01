@@ -951,6 +951,7 @@ class Network(util.DaemonThread):
     def init_headers_file(self):
         b = self.blockchains[0]
         if b.get_hash(0) == bitcoin.NetworkConstants.GENESIS:
+            logger.info(f">>>skip download header and return due to genesis matches")
             self.downloading_headers = False
             return
         filename = b.path()
