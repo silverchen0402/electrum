@@ -497,6 +497,7 @@ class Blockchain(Logger):
         if constants.net.TESTNET:
             return 0
         if index == -1:
+            self.logger.info(f"return max_target:{index}")
             return MAX_TARGET
         if index < len(self.checkpoints):
             h, t = self.checkpoints[index]
