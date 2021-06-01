@@ -570,9 +570,11 @@ class Blockchain(Logger):
         return running_total + work_in_last_partial_chunk
 
     def can_connect(self, header: dict, check_height: bool=True) -> bool:
+        self.logger.info(f">>>check_height:{self.height()}")
         if header is None:
             return False
         height = header['block_height']
+        self.logger.info(f">>>check_height:{self.height()}:{height}")
         if check_height and self.height() != height - 1:
             self.logger.info(f">>>check_height:{self.height()}:{height}")
             return False
