@@ -518,6 +518,7 @@ class Blockchain(Logger):
         nTargetTimespan = 14 * 24 * 60 * 60
         nActualTimespan = max(nActualTimespan, nTargetTimespan // 4)
         nActualTimespan = min(nActualTimespan, nTargetTimespan * 4)
+        self.loger.info(f"{target}:{nActualTimespan}:{MAX_TARGET}")
         new_target = min(MAX_TARGET, (target * nActualTimespan) // nTargetTimespan)
         # not any target can be represented in 32 bits:
         new_target = self.bits_to_target(self.target_to_bits(new_target))
@@ -592,6 +593,9 @@ class Blockchain(Logger):
         return running_total + work_in_last_partial_chunk
 
     def can_connect(self, header: dict, check_height: bool=True) -> bool:
+        import inspect
+        print(">>>caller:",inspect.stack()[1].function, inspect.stack()[1].filename)
+        
         self.logger.info(f">>>check_height:{self.height()}")
         if header is None:
             self.logger.info(f">>>header none:{self.height()}")
@@ -659,6 +663,12 @@ def check_header(header: dict) -> Optional[Blockchain]:
 
 
 def can_connect(header: dict) -> Optional[Blockchain]:
+    
+    
+    
+    import inspect
+    print(">>>caller:",inspect.stack()[1].function, inspect.stack()[1].filename)
+        
     import logging
     logger0 = logging.getLogger('test')
     logger0.setLevel(logging.DEBUG)
