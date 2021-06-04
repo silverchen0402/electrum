@@ -518,7 +518,7 @@ class Blockchain(Logger):
         nTargetTimespan = 14 * 24 * 60 * 60
         nActualTimespan = max(nActualTimespan, nTargetTimespan // 4)
         nActualTimespan = min(nActualTimespan, nTargetTimespan * 4)
-        self.loger.info(f"{target}:{nActualTimespan}:{MAX_TARGET}")
+        self.logger.info(f"{target}:{nActualTimespan}:{MAX_TARGET}")
         new_target = min(MAX_TARGET, (target * nActualTimespan) // nTargetTimespan)
         # not any target can be represented in 32 bits:
         new_target = self.bits_to_target(self.target_to_bits(new_target))
