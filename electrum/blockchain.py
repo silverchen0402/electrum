@@ -521,23 +521,30 @@ class Blockchain(Logger):
         new_target = min(MAX_TARGET, (target * nActualTimespan) // nTargetTimespan)
         # not any target can be represented in 32 bits:
         new_target = self.bits_to_target(self.target_to_bits(new_target))
-        self.logger.inf(f"new target is:{new_target}")
+        self.logger.info(f"new target is:{new_target}")
         #return 0x207fffff
         return new_target
 
     @classmethod
     def bits_to_target(cls, bits: int) -> int:
-        print(f">>>bits:{bits}")
+        import inspect
+        print(">>>caller:",inspect.stack()[1].function, inspect.stack()[1].filename)
+        
         bitsN = (bits >> 24) & 0xff
         if not (0x03 <= bitsN <= 0x20):
             raise Exception("First part of bits should be in [0x03, 0x1d]")
         bitsBase = bits & 0xffffff
         if not (0x0000 <= bitsBase <= 0x7fffff):
             raise Exception("Second part of bits should be in [0x8000, 0x7fffff]")
-        return bitsBase << (8 * (bitsN-3))
+        t=bitsBase << (8 * (bitsN-3))
+        print(f">>>bits:{bits}->{t}")
+        return 
 
     @classmethod
     def target_to_bits(cls, target: int) -> int:
+        import inspect
+        print(">>>caller:",inspect.stack()[1].function, inspect.stack()[1].filename)
+        
         c = ("%064x" % target)[2:]
         while c[:2] == '00' and len(c) > 6:
             c = c[2:]
@@ -545,7 +552,10 @@ class Blockchain(Logger):
         if bitsBase >= 0x800000:
             bitsN += 1
             bitsBase >>= 8
-        return bitsN << 24 | bitsBase
+        t=bitsN << 24 | bitsBase
+        print(f">>>target:{target}->{t}")
+        return(t)
+        return 
 
     def chainwork_of_header_at_height(self, height: int) -> int:
         """work done by single header at given height"""
