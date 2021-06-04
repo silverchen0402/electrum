@@ -514,7 +514,7 @@ class Blockchain(Logger):
             raise MissingHeader()
         bits = last.get('bits')
         target = self.bits_to_target(bits)
-        self.logger.info(f">>>new {target}:{MAX_TARGET}")
+        self.logger.info(f">>>new {target}:{MAX_TARGET}:{bits}")
         nActualTimespan = last.get('timestamp') - first.get('timestamp')
         nTargetTimespan = 14 * 24 * 60 * 60
         nActualTimespan = max(nActualTimespan, nTargetTimespan // 4)
@@ -540,7 +540,7 @@ class Blockchain(Logger):
             raise Exception("Second part of bits should be in [0x8000, 0x7fffff]")
         t=bitsBase << (8 * (bitsN-3))
         print(f">>>bits:{bits}->{t}")
-        return 
+        return(t) 
 
     @classmethod
     def target_to_bits(cls, target: int) -> int:
