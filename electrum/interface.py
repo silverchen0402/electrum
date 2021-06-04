@@ -328,7 +328,7 @@ class Interface(Logger):
     def handle_disconnect(func):
         async def wrapper_func(self: 'Interface', *args, **kwargs):
             try:
-                self.logger.info(f"{args}:{kwargs}")
+                self.logger.info(f">>>handle disconnect {args}:{kwargs}")
                 return await func(self, *args, **kwargs)
             except GracefulDisconnect as e:
                 self.logger.log(e.log_level, f"disconnecting due to {repr(e)}")

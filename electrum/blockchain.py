@@ -514,7 +514,7 @@ class Blockchain(Logger):
             raise MissingHeader()
         bits = last.get('bits')
         target = self.bits_to_target(bits)
-        self.logger.info(f">>>{target}:{MAX_TARGET}")
+        self.logger.info(f">>>new {target}:{MAX_TARGET}")
         nActualTimespan = last.get('timestamp') - first.get('timestamp')
         nTargetTimespan = 14 * 24 * 60 * 60
         nActualTimespan = max(nActualTimespan, nTargetTimespan // 4)
